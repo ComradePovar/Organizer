@@ -66,5 +66,15 @@ namespace Organizer.UC.Organizer
 
             Dispose();
         }
+
+        private void tslEventTitle_Click(object sender, EventArgs e)
+        {
+            AddEditEvent addEditEvent = Parent
+                                        .Parent
+                                        .Controls["pnlCalendarEvent"]
+                                        .Controls["addeditevent"] as AddEditEvent;
+            addEditEvent.EditEvent(_userEvent);
+            addEditEvent.BringToFront();
+        }
     }
 }

@@ -55,6 +55,7 @@
             this.tslEventTitle.Name = "tslEventTitle";
             this.tslEventTitle.Size = new System.Drawing.Size(30, 22);
             this.tslEventTitle.Text = "Title";
+            this.tslEventTitle.Click += new System.EventHandler(this.tslEventTitle_Click);
             // 
             // tsbDel
             // 

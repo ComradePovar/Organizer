@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace Organizer.UC.Organizer
@@ -16,9 +16,9 @@ namespace Organizer.UC.Organizer
         public Organizer()
         {
             InitializeComponent();
-            pnlCalendarTask.Controls.Add(new NewEvent() { Name = "newevent" });
-            pnlCalendarTask.Controls.Add(new Calendar() { Name = "calendar" });
-            pnlCalendarTask.Controls["calendar"].BringToFront();
+            pnlCalendarEvent.Controls.Add(new AddEditEvent() { Name = "addeditevent" });
+            pnlCalendarEvent.Controls.Add(new Calendar() { Name = "calendar" });
+            pnlCalendarEvent.Controls["calendar"].BringToFront();
         }
 
         private void Organizer_Load(object sender, EventArgs e)
@@ -28,7 +28,13 @@ namespace Organizer.UC.Organizer
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            pnlCalendarTask.Controls["newevent"].BringToFront();
+            ((pnlCalendarEvent.Controls["addEditEvent"] as AddEditEvent)
+                .Controls["dateTimePicker"] as DateTimePicker)
+                .Value = (pnlCalendarEvent
+                            .Controls["calendar"]
+                            .Controls["monthCalendar"] as MonthCalendar).SelectionStart;
+                
+            pnlCalendarEvent.Controls["addeditevent"].BringToFront();
         }
 
         private void contactsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -44,6 +50,57 @@ namespace Organizer.UC.Organizer
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ParentForm.Close();
+        }
+
+        public void GetEvents(string date)
+        {
+            foreach (EventItem eventItem in pnlEventList.Controls)
+            {
+                eventItem.Dispose();
+            }
+
+            pnlEventList.Controls.Clear();
+
+            SqlCommand getTodayEvents = new SqlCommand(
+                string.Format("SELECT * FROM dbo.events" +
+                              " WHERE owner = '{0}' AND" +
+                              " event_date = '{1}'" +
+                              " ORDER BY event_time DESC",
+                (ParentForm as OrganizerForm).CurrentLogin, date),
+                (ParentForm as OrganizerForm).Connection
+            );
+
+            SqlDataReader reader = null;
+            try
+            {
+                reader = getTodayEvents.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        UserEvent userEvent = new UserEvent(
+                            reader["event_id"],
+                            reader["description"],
+                            reader["city"],
+                            reader["street"],
+                            reader["home"],
+                            reader["event_date"],
+                            reader["event_time"]
+                        );
+
+                        pnlEventList.Controls.Add(
+                            new EventItem(userEvent)
+                        );
+                    }
+                }
+            }
+
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
         }
     }
 }

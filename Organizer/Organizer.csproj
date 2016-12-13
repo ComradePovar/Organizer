@@ -106,11 +106,11 @@
     <Compile Include="UC\Organizer\EventItem.Designer.cs">
       <DependentUpon>EventItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="UC\Organizer\NewEvent.cs">
+    <Compile Include="UC\Organizer\AddEditEvent.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UC\Organizer\NewEvent.Designer.cs">
-      <DependentUpon>NewEvent.cs</DependentUpon>
+    <Compile Include="UC\Organizer\AddEditEvent.Designer.cs">
+      <DependentUpon>AddEditEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="UC\Organizer\Organizer.cs">
       <SubType>UserControl</SubType>
@@ -149,8 +149,8 @@
     <EmbeddedResource Include="UC\Organizer\EventItem.resx">
       <DependentUpon>EventItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UC\Organizer\NewEvent.resx">
-      <DependentUpon>NewEvent.cs</DependentUpon>
+    <EmbeddedResource Include="UC\Organizer\AddEditEvent.resx">
+      <DependentUpon>AddEditEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC\Organizer\Organizer.resx">
       <DependentUpon>Organizer.cs</DependentUpon>

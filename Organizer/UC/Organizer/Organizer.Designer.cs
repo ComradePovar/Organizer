@@ -32,13 +32,13 @@
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.addBtn = new System.Windows.Forms.Button();
             this.pnlEventList = new System.Windows.Forms.Panel();
-            this.pnlCalendarTask = new System.Windows.Forms.Panel();
-            this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlCalendarEvent = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,14 +67,28 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem2.Text = "1";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(80, 22);
             this.toolStripMenuItem3.Text = "2";
+            // 
+            // contactsToolStripMenuItem
+            // 
+            this.contactsToolStripMenuItem.Name = "contactsToolStripMenuItem";
+            this.contactsToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.contactsToolStripMenuItem.Text = "Контакты";
+            this.contactsToolStripMenuItem.Click += new System.EventHandler(this.contactsToolStripMenuItem_Click);
+            // 
+            // profileToolStripMenuItem
+            // 
+            this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.profileToolStripMenuItem.Text = "Профиль";
+            this.profileToolStripMenuItem.Click += new System.EventHandler(this.profileToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -109,32 +123,18 @@
             this.pnlEventList.Size = new System.Drawing.Size(179, 135);
             this.pnlEventList.TabIndex = 5;
             // 
-            // pnlCalendarTask
+            // pnlCalendarEvent
             // 
-            this.pnlCalendarTask.Location = new System.Drawing.Point(208, 24);
-            this.pnlCalendarTask.Name = "pnlCalendarTask";
-            this.pnlCalendarTask.Size = new System.Drawing.Size(197, 181);
-            this.pnlCalendarTask.TabIndex = 6;
-            // 
-            // contactsToolStripMenuItem
-            // 
-            this.contactsToolStripMenuItem.Name = "contactsToolStripMenuItem";
-            this.contactsToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.contactsToolStripMenuItem.Text = "Контакты";
-            this.contactsToolStripMenuItem.Click += new System.EventHandler(this.contactsToolStripMenuItem_Click);
-            // 
-            // profileToolStripMenuItem
-            // 
-            this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
-            this.profileToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.profileToolStripMenuItem.Text = "Профиль";
-            this.profileToolStripMenuItem.Click += new System.EventHandler(this.profileToolStripMenuItem_Click);
+            this.pnlCalendarEvent.Location = new System.Drawing.Point(208, 24);
+            this.pnlCalendarEvent.Name = "pnlCalendarEvent";
+            this.pnlCalendarEvent.Size = new System.Drawing.Size(197, 181);
+            this.pnlCalendarEvent.TabIndex = 6;
             // 
             // Organizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pnlCalendarTask);
+            this.Controls.Add(this.pnlCalendarEvent);
             this.Controls.Add(this.pnlEventList);
             this.Controls.Add(this.addBtn);
             this.Controls.Add(this.label1);
@@ -159,7 +159,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Panel pnlEventList;
-        private System.Windows.Forms.Panel pnlCalendarTask;
+        private System.Windows.Forms.Panel pnlCalendarEvent;
         private System.Windows.Forms.ToolStripMenuItem contactsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
     }

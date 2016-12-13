@@ -1,6 +1,6 @@
 ﻿namespace Organizer.UC.Organizer
 {
-    partial class NewEvent
+    partial class AddEditEvent
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tbHome = new System.Windows.Forms.TextBox();
-            this.btnCreateEvent = new System.Windows.Forms.Button();
+            this.btnAddEditEvent = new System.Windows.Forms.Button();
             this.tbStreet = new System.Windows.Forms.TextBox();
             this.tbCity = new System.Windows.Forms.TextBox();
             this.lbDescription = new System.Windows.Forms.Label();
@@ -38,6 +38,7 @@
             this.tbDescription = new System.Windows.Forms.RichTextBox();
             this.lbStreet = new System.Windows.Forms.Label();
             this.lbHome = new System.Windows.Forms.Label();
+            this.btnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbHome
@@ -48,15 +49,15 @@
             this.tbHome.Size = new System.Drawing.Size(128, 20);
             this.tbHome.TabIndex = 4;
             // 
-            // btnCreateEvent
+            // btnAddEditEvent
             // 
-            this.btnCreateEvent.Location = new System.Drawing.Point(61, 158);
-            this.btnCreateEvent.Name = "btnCreateEvent";
-            this.btnCreateEvent.Size = new System.Drawing.Size(75, 23);
-            this.btnCreateEvent.TabIndex = 6;
-            this.btnCreateEvent.Text = "Создать";
-            this.btnCreateEvent.UseVisualStyleBackColor = true;
-            this.btnCreateEvent.Click += new System.EventHandler(this.btnCreateEvent_Click);
+            this.btnAddEditEvent.Location = new System.Drawing.Point(104, 158);
+            this.btnAddEditEvent.Name = "btnAddEditEvent";
+            this.btnAddEditEvent.Size = new System.Drawing.Size(75, 23);
+            this.btnAddEditEvent.TabIndex = 6;
+            this.btnAddEditEvent.Text = "Создать";
+            this.btnAddEditEvent.UseVisualStyleBackColor = true;
+            this.btnAddEditEvent.Click += new System.EventHandler(this.btnAddEditEvent_Click);
             // 
             // tbStreet
             // 
@@ -126,10 +127,21 @@
             this.lbHome.TabIndex = 12;
             this.lbHome.Text = "Дом:";
             // 
-            // NewEvent
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(23, 158);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(75, 23);
+            this.btnBack.TabIndex = 13;
+            this.btnBack.Text = "Назад";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // AddEditEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.lbHome);
             this.Controls.Add(this.lbStreet);
             this.Controls.Add(this.tbDescription);
@@ -138,9 +150,9 @@
             this.Controls.Add(this.lbDescription);
             this.Controls.Add(this.tbCity);
             this.Controls.Add(this.tbStreet);
-            this.Controls.Add(this.btnCreateEvent);
+            this.Controls.Add(this.btnAddEditEvent);
             this.Controls.Add(this.tbHome);
-            this.Name = "NewEvent";
+            this.Name = "AddEditEvent";
             this.Size = new System.Drawing.Size(197, 181);
             this.Load += new System.EventHandler(this.NewEvent_Load);
             this.ResumeLayout(false);
@@ -151,7 +163,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox tbHome;
-        private System.Windows.Forms.Button btnCreateEvent;
+        private System.Windows.Forms.Button btnAddEditEvent;
         private System.Windows.Forms.TextBox tbStreet;
         private System.Windows.Forms.TextBox tbCity;
         private System.Windows.Forms.Label lbDescription;
@@ -160,5 +172,6 @@
         private System.Windows.Forms.RichTextBox tbDescription;
         private System.Windows.Forms.Label lbStreet;
         private System.Windows.Forms.Label lbHome;
+        private System.Windows.Forms.Button btnBack;
     }
 }
