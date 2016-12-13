@@ -43,6 +43,7 @@ namespace Organizer.UC.Authorization
                 try
                 {
                     newUserCmd.ExecuteNonQuery();
+
                 }
                 catch (Exception ex)
                 {

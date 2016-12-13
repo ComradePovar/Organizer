@@ -16,13 +16,15 @@ namespace Organizer
     {
         private string connectionString;
         public SqlConnection Connection { get; private set; }
+        public string CurrentLogin { get; private set; }
 
         public OrganizerForm()
         {
             InitializeComponent();
 
-        
-            panel.Controls.Add(new UC.Authorization.LogIn() { Name = "login" });
+            UC.Authorization.LogIn loginUC = new UC.Authorization.LogIn() { Name = "login" };
+            loginUC.AuthSuccessful += OnAuthSuccessful;
+            panel.Controls.Add(loginUC);
             panel.Controls.Add(new UC.Authorization.Registration() { Name = "registration" });
             panel.Controls["login"].BringToFront();
         }
@@ -42,6 +44,16 @@ namespace Organizer
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void OnAuthSuccessful(string login)
+        {
+            CurrentLogin = login;
+            panel.Controls.Add(new UC.Organizer.Organizer() { Name = "organizer" });
+            panel
+                .Controls["organizer"]
+                .BringToFront();
+            ClientSize = new Size(405, 205);
         }
     }
 }

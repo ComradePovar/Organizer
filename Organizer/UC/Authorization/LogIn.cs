@@ -13,6 +13,9 @@ namespace Organizer.UC.Authorization
 {
     public partial class LogIn : UserControl
     {
+        public delegate void AuthSuccessfulHandler(string login);
+        public event AuthSuccessfulHandler AuthSuccessful;
+
         private SqlConnection connection
         {
             get
@@ -41,7 +44,7 @@ namespace Organizer.UC.Authorization
             SqlDataReader reader = null;
             try
             {
-                reader = loginCmd.ExecuteReader();
+                reader = loginCmd.ExecuteReader();                
             }
             catch (Exception ex)
             {
@@ -51,11 +54,12 @@ namespace Organizer.UC.Authorization
 
             if (reader.HasRows)
             {
-                MessageBox.Show("+");
+                reader.Close();
+                AuthSuccessful(tbLogin.Text);
             }
             else
             {
-                MessageBox.Show("-");
+                MessageBox.Show("Неверная комбинация логин-пароль.");
             }
         }
 
