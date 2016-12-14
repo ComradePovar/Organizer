@@ -51,6 +51,11 @@ namespace Organizer.UC.Organizer
                 insertUserEvent();
 
             (Parent.Parent as Organizer).GetEvents(eventDate);
+
+            OrganizerForm mainForm = Application.OpenForms["OrganizerForm"] as OrganizerForm;
+            mainForm._userEvents.RemoveAll(userEvent => userEvent.EventID == _userEvent.EventID);
+            mainForm._userEvents.Add(_userEvent);
+
             clearTextBoxes();
             (Parent.Controls["calendar"]).BringToFront();
         }
@@ -64,8 +69,8 @@ namespace Organizer.UC.Organizer
                               "street = '{2}', " +
                               "home = '{3}', " +
                               "event_date = '{4}', " +
-                              "event_time = '{5}', " +
-                              "WHERE event_id = '{6}';",
+                              "event_time = '{5}' " +
+                              "WHERE event_id = {6};",
                               _userEvent.Description,
                               _userEvent.City,
                               _userEvent.Street,

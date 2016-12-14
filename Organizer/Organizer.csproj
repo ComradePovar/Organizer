@@ -62,6 +62,12 @@
     <Compile Include="ContactsForm.Designer.cs">
       <DependentUpon>ContactsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EventInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventInfo.Designer.cs">
+      <DependentUpon>EventInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     <Compile Include="UserEvent.cs" />
     <EmbeddedResource Include="ContactsForm.resx">
       <DependentUpon>ContactsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventInfo.resx">
+      <DependentUpon>EventInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrganizerForm.resx">
       <DependentUpon>OrganizerForm.cs</DependentUpon>

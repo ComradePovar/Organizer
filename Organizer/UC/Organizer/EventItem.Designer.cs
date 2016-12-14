@@ -97,7 +97,7 @@
 
         private System.Windows.Forms.ToolStrip eventMenu;
         private System.Windows.Forms.ToolStripLabel tslEventTitle;
-        private System.Windows.Forms.ToolStripButton tsbComplete;
         private System.Windows.Forms.ToolStripButton tsbDel;
+        private System.Windows.Forms.ToolStripButton tsbComplete;
     }
 }

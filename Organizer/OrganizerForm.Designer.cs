@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
+            this.timer = new System.Windows.Forms.Timer();
             this.SuspendLayout();
             // 
             // panel
@@ -51,11 +52,17 @@
             this.Load += new System.EventHandler(this.OrganizerForm_Load);
             this.ResumeLayout(false);
 
+            //
+            // timer
+            //
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panel;
+        protected System.Windows.Forms.Timer timer;
     }
 }
 

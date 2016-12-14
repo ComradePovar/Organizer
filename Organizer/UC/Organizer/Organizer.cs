@@ -63,9 +63,9 @@ namespace Organizer.UC.Organizer
             pnlEventList.Controls.Clear();
 
             SqlCommand getTodayEvents = new SqlCommand(
-                string.Format("SELECT * FROM dbo.events" +
+                string.Format("SELECT * FROM Events" +
                               " WHERE owner = '{0}' AND" +
-                              " event_date = '{1}'" +
+                              " event_date = '{1}' AND status IS NULL" +
                               " ORDER BY event_time DESC",
                 (ParentForm as OrganizerForm).CurrentLogin, date),
                 (ParentForm as OrganizerForm).Connection
@@ -89,6 +89,7 @@ namespace Organizer.UC.Organizer
                             reader["event_date"],
                             reader["event_time"]
                         );
+
 
                         pnlEventList.Controls.Add(
                             new EventItem(userEvent)

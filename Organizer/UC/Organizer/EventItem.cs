@@ -29,15 +29,8 @@ namespace Organizer.UC.Organizer
 
         private void tsbDel_Click(object sender, EventArgs e)
         {
-            deleteEvent();
-            //занести в статистику как отмененное
+            cancelEvent();
             Dispose();
-        }
-
-        private void tsbComplete_Click(object sender, EventArgs e)
-        {
-            deleteEvent();
-            //занести в статистику как выполненное
         }
 
         private void EventItem_Load(object sender, EventArgs e)
@@ -45,19 +38,23 @@ namespace Organizer.UC.Organizer
             Dock = DockStyle.Top;
         }
 
-        private void deleteEvent()
+        private void cancelEvent()
         {
             Parent.Parent.Controls["pnlEventList"].Controls.Remove(this);
+            (Application.OpenForms["OrganizerForm"] as OrganizerForm)
+                ._userEvents
+                .RemoveAll(userEvent => userEvent.EventID == _userEvent.EventID);
 
-            SqlCommand deleteEvent = new SqlCommand(
-                string.Format("DELETE FROM dbo.events" +
+            SqlCommand cancelEvent = new SqlCommand(
+                string.Format("UPDATE events" +
+                              " SET status = 'canceled'" +
                               " WHERE event_id = {0}", _userEvent.EventID),
                 (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
             );
 
             try
             {
-                deleteEvent.ExecuteNonQuery();
+                cancelEvent.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -66,7 +63,31 @@ namespace Organizer.UC.Organizer
 
             Dispose();
         }
+        private void completeEvent()
+        {
+            Parent.Parent.Controls["pnlEventList"].Controls.Remove(this);
+            (Application.OpenForms["OrganizerForm"] as OrganizerForm)
+                ._userEvents
+                .RemoveAll(userEvent => userEvent.EventID == _userEvent.EventID);
 
+            SqlCommand completeEvent = new SqlCommand(
+                string.Format("UPDATE events" +
+                              " SET status = 'completed'" +
+                              " WHERE event_id = {0}", _userEvent.EventID),
+                (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
+            );
+
+            try
+            {
+                completeEvent.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            Dispose();
+        }
         private void tslEventTitle_Click(object sender, EventArgs e)
         {
             AddEditEvent addEditEvent = Parent
@@ -75,6 +96,11 @@ namespace Organizer.UC.Organizer
                                         .Controls["addeditevent"] as AddEditEvent;
             addEditEvent.EditEvent(_userEvent);
             addEditEvent.BringToFront();
+        }
+
+        private void tsbComplete_Click(object sender, EventArgs e)
+        {
+            completeEvent();
         }
     }
 }

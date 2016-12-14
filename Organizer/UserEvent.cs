@@ -15,6 +15,7 @@ namespace Organizer
         public string Home { get; set; }
         public string EventDate { get; set; }
         public string EventTime { get; set; }
+        public bool HasPassed = false;
 
         public UserEvent() { }
         public UserEvent(object id, object descr, object city, object street,
