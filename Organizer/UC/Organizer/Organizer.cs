@@ -32,7 +32,8 @@ namespace Organizer.UC.Organizer
                 .Controls["dateTimePicker"] as DateTimePicker)
                 .Value = (pnlCalendarEvent
                             .Controls["calendar"]
-                            .Controls["monthCalendar"] as MonthCalendar).SelectionStart;
+                            .Controls["monthCalendar"] as MonthCalendar)
+                            .SelectionStart;
                 
             pnlCalendarEvent.Controls["addeditevent"].BringToFront();
         }

@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlEventList = new System.Windows.Forms.Panel();
+            this.pnlContactList = new System.Windows.Forms.Panel();
             this.lbNewContact = new System.Windows.Forms.Label();
             this.tbNewContact = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // pnlEventList
+            // pnlContactList
             // 
-            this.pnlEventList.AutoScroll = true;
-            this.pnlEventList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlEventList.Location = new System.Drawing.Point(0, 31);
-            this.pnlEventList.Name = "pnlEventList";
-            this.pnlEventList.Size = new System.Drawing.Size(284, 230);
-            this.pnlEventList.TabIndex = 7;
+            this.pnlContactList.AutoScroll = true;
+            this.pnlContactList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlContactList.Location = new System.Drawing.Point(0, 31);
+            this.pnlContactList.Name = "pnlContactList";
+            this.pnlContactList.Size = new System.Drawing.Size(284, 230);
+            this.pnlContactList.TabIndex = 7;
             // 
             // lbNewContact
             // 
@@ -75,11 +75,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.pnlEventList);
+            this.Controls.Add(this.pnlContactList);
             this.Controls.Add(this.tbNewContact);
             this.Controls.Add(this.lbNewContact);
             this.Name = "ContactsForm";
             this.Text = "ContactsForm";
+            this.Load += new System.EventHandler(this.ContactsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,7 +88,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlEventList;
+        private System.Windows.Forms.Panel pnlContactList;
         private System.Windows.Forms.Label lbNewContact;
         private System.Windows.Forms.TextBox tbNewContact;
         private System.Windows.Forms.Button btnAdd;

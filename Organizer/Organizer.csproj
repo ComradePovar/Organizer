@@ -118,6 +118,7 @@
     <Compile Include="UC\Organizer\Organizer.Designer.cs">
       <DependentUpon>Organizer.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserContact.cs" />
     <Compile Include="UserEvent.cs" />
     <EmbeddedResource Include="ContactsForm.resx">
       <DependentUpon>ContactsForm.cs</DependentUpon>

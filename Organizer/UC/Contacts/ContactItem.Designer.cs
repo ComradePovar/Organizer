@@ -52,6 +52,7 @@
             this.tslContactName.Name = "tslContactName";
             this.tslContactName.Size = new System.Drawing.Size(39, 22);
             this.tslContactName.Text = "Name";
+            this.tslContactName.Click += new System.EventHandler(this.tslContactName_Click);
             // 
             // tsbDelete
             // 
