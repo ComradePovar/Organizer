@@ -129,7 +129,7 @@ namespace Organizer
                 if (eventDateTime <= dtNow && userEvent.HasPassed == false)
                 {
                     userEvent.HasPassed = true;
-                    (new EventInfo(userEvent)).ShowDialog();
+                    (new EventInfoForm(userEvent)).ShowDialog();
                     (panel.Controls["organizer"] as UC.Organizer.Organizer).GetEvents(
                         dtNow.Year + "-" + dtNow.Month + "-" + dtNow.Day
                     );

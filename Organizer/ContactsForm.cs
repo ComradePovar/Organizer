@@ -47,6 +47,10 @@ namespace Organizer
                     insertContact.ExecuteNonQuery();
                     updateContactList();
                 }
+                else
+                {
+                    MessageBox.Show("Пользователя с таким логином не существует.");
+                }
             }
             catch (Exception ex)
             {
@@ -79,6 +83,12 @@ namespace Organizer
                                             mainForm.CurrentLogin),
                             mainForm.Connection
             );
+
+            foreach (UC.Contacts.ContactItem contactItem in pnlContactList.Controls)
+            {
+                contactItem.Dispose();
+            }
+            pnlContactList.Controls.Clear();
 
             SqlDataReader reader = null;
             try

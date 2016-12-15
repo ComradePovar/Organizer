@@ -65,7 +65,7 @@
             this.tsbDel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDel.Name = "tsbDel";
             this.tsbDel.Size = new System.Drawing.Size(23, 22);
-            this.tsbDel.Text = "toolStripButton1";
+            this.tsbDel.Text = " Отменить";
             this.tsbDel.Click += new System.EventHandler(this.tsbDel_Click);
             // 
             // tsbComplete
@@ -76,6 +76,7 @@
             this.tsbComplete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbComplete.Name = "tsbComplete";
             this.tsbComplete.Size = new System.Drawing.Size(23, 22);
+            this.tsbComplete.Text = "Завершить";
             this.tsbComplete.Click += new System.EventHandler(this.tsbComplete_Click);
             // 
             // EventItem

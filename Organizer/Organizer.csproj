@@ -56,17 +56,23 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContactInfoForm.Designer.cs">
+      <DependentUpon>ContactInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ContactsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ContactsForm.Designer.cs">
       <DependentUpon>ContactsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EventInfo.cs">
+    <Compile Include="EventInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EventInfo.Designer.cs">
-      <DependentUpon>EventInfo.cs</DependentUpon>
+    <Compile Include="EventInfoForm.Designer.cs">
+      <DependentUpon>EventInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ProfileForm.cs">
       <SubType>Form</SubType>
@@ -126,11 +132,14 @@
     </Compile>
     <Compile Include="UserContact.cs" />
     <Compile Include="UserEvent.cs" />
+    <EmbeddedResource Include="ContactInfoForm.resx">
+      <DependentUpon>ContactInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ContactsForm.resx">
       <DependentUpon>ContactsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EventInfo.resx">
-      <DependentUpon>EventInfo.cs</DependentUpon>
+    <EmbeddedResource Include="EventInfoForm.resx">
+      <DependentUpon>EventInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrganizerForm.resx">
       <DependentUpon>OrganizerForm.cs</DependentUpon>

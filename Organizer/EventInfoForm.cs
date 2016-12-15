@@ -11,15 +11,15 @@ using System.Data.SqlClient;
 
 namespace Organizer
 {
-    public partial class EventInfo : Form
+    public partial class EventInfoForm : Form
     {
         private UserEvent _userEvent;
-        public EventInfo()
+        public EventInfoForm()
         {
             InitializeComponent();
         }
 
-        public EventInfo(UserEvent userEvent)
+        public EventInfoForm(UserEvent userEvent)
         {
             InitializeComponent();
             _userEvent = userEvent;

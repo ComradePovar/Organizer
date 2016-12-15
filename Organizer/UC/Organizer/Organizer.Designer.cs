@@ -100,9 +100,9 @@
             // label1
             // 
             this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label1.Location = new System.Drawing.Point(194, 24);
+            this.label1.Location = new System.Drawing.Point(196, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 181);
+            this.label1.Size = new System.Drawing.Size(3, 181);
             this.label1.TabIndex = 3;
             // 
             // addBtn

@@ -15,7 +15,6 @@ namespace Organizer
     public partial class ProfileForm : Form
     {
         private UserContact _user;
-        private string _phonePattern = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
         public delegate void UserInfoChangedHandler(UserContact userInfo);
         public event UserInfoChangedHandler UserInfoChanged;
 
@@ -31,7 +30,7 @@ namespace Organizer
 
             tbName.Text = userInfo.Name;
             tbSurname.Text = userInfo.Surname;
-            tbPhone.Text = userInfo.Phone;
+            mtbPhone.Text = userInfo.Phone;
             tbCity.Text = userInfo.City;
             tbStreet.Text = userInfo.Street;
             tbHome.Text = userInfo.Home;
@@ -42,7 +41,7 @@ namespace Organizer
         {
             _user.Name = tbName.Text;
             _user.Surname = tbSurname.Text;
-            _user.Phone = tbPhone.Text;
+            _user.Phone = mtbPhone.Text;
             _user.City = tbCity.Text;
             _user.Street = tbStreet.Text;
             _user.Home = tbHome.Text;
@@ -79,14 +78,6 @@ namespace Organizer
             }
 
             Close();
-        }
-
-        private void tbPhone_Leave(object sender, EventArgs e)
-        {
-            Regex regex = new Regex(_phonePattern);
-
-            if (!regex.IsMatch(tbPhone.Text))
-                MessageBox.Show("Неверно введен номер телефона.");
         }
     }
 }

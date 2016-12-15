@@ -37,12 +37,12 @@
             this.lbHome = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbSurname = new System.Windows.Forms.TextBox();
-            this.tbPhone = new System.Windows.Forms.TextBox();
             this.tbCity = new System.Windows.Forms.TextBox();
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.tbHome = new System.Windows.Forms.TextBox();
             this.tbStreet = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.mtbPhone = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // lbName
@@ -124,15 +124,6 @@
             this.tbSurname.Size = new System.Drawing.Size(100, 20);
             this.tbSurname.TabIndex = 7;
             // 
-            // tbPhone
-            // 
-            this.tbPhone.Location = new System.Drawing.Point(170, 73);
-            this.tbPhone.MaxLength = 16;
-            this.tbPhone.Name = "tbPhone";
-            this.tbPhone.Size = new System.Drawing.Size(100, 20);
-            this.tbPhone.TabIndex = 8;
-            this.tbPhone.Leave += new System.EventHandler(this.tbPhone_Leave);
-            // 
             // tbCity
             // 
             this.tbCity.Location = new System.Drawing.Point(170, 103);
@@ -175,17 +166,25 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // mtbPhone
+            // 
+            this.mtbPhone.Location = new System.Drawing.Point(170, 73);
+            this.mtbPhone.Mask = "+7-999-000-00-00";
+            this.mtbPhone.Name = "mtbPhone";
+            this.mtbPhone.Size = new System.Drawing.Size(100, 20);
+            this.mtbPhone.TabIndex = 28;
+            // 
             // ProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.mtbPhone);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tbEmail);
             this.Controls.Add(this.tbHome);
             this.Controls.Add(this.tbStreet);
             this.Controls.Add(this.tbCity);
-            this.Controls.Add(this.tbPhone);
             this.Controls.Add(this.tbSurname);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lbHome);
@@ -213,11 +212,11 @@
         private System.Windows.Forms.Label lbHome;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.TextBox tbSurname;
-        private System.Windows.Forms.TextBox tbPhone;
         private System.Windows.Forms.TextBox tbCity;
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.TextBox tbHome;
         private System.Windows.Forms.TextBox tbStreet;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.MaskedTextBox mtbPhone;
     }
 }

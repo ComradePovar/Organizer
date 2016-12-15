@@ -59,14 +59,9 @@ namespace Organizer.UC.Contacts
             Dispose();
         }
 
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            //Отображение инфы о контакте
-        }
-
         private void tslContactName_Click(object sender, EventArgs e)
         {
-
+            (new ContactInfoForm(_userContact)).Show();
         }
     }
 }

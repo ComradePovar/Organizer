@@ -1,6 +1,6 @@
 ﻿namespace Organizer
 {
-    partial class EventInfo
+    partial class EventInfoForm
     {
         /// <summary>
         /// Required designer variable.
