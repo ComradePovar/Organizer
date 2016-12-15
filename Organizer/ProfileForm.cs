@@ -45,7 +45,7 @@ namespace Organizer
             if (!_canBeSaved)
             {
                 MessageBox.Show("Неверно введен номер телефона.", "",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
                                 MessageBoxDefaultButton.Button1);
                 return;
             }

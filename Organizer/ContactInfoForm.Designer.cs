@@ -163,6 +163,7 @@
             // 
             // mtbPhone
             // 
+            this.mtbPhone.Enabled = false;
             this.mtbPhone.Location = new System.Drawing.Point(172, 74);
             this.mtbPhone.Mask = "+7-999-000-00-00";
             this.mtbPhone.Name = "mtbPhone";

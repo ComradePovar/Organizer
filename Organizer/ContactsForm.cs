@@ -120,7 +120,9 @@ namespace Organizer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Пользователь с таким логином уже добавлен.", "",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button1);
                 return;
             }
             finally
