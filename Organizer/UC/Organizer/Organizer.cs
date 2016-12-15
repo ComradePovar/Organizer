@@ -13,12 +13,22 @@ namespace Organizer.UC.Organizer
 {
     public partial class Organizer : UserControl
     {
+        private UserContact _userInfo;
+
         public Organizer()
         {
             InitializeComponent();
             pnlCalendarEvent.Controls.Add(new AddEditEvent() { Name = "addeditevent" });
             pnlCalendarEvent.Controls.Add(new Calendar() { Name = "calendar" });
             pnlCalendarEvent.Controls["calendar"].BringToFront();
+        }
+        public Organizer(UserContact userInfo)
+        {
+            InitializeComponent();
+            pnlCalendarEvent.Controls.Add(new AddEditEvent() { Name = "addeditevent" });
+            pnlCalendarEvent.Controls.Add(new Calendar() { Name = "calendar" });
+            pnlCalendarEvent.Controls["calendar"].BringToFront();
+            _userInfo = userInfo;
         }
 
         private void Organizer_Load(object sender, EventArgs e)
@@ -45,7 +55,10 @@ namespace Organizer.UC.Organizer
 
         private void profileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (new ProfileForm()).ShowDialog();
+            ProfileForm profileForm = new ProfileForm(_userInfo);
+            profileForm.UserInfoChanged += (Application.OpenForms["OrganizerForm"] as OrganizerForm)
+                                           .OnUserInfoChanged;
+            profileForm.Show();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)

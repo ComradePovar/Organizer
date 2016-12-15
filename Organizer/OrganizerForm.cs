@@ -18,6 +18,7 @@ namespace Organizer
         public SqlConnection Connection { get; private set; }
         public string CurrentLogin { get; private set; }
         public List<UserEvent> _userEvents;
+        private UserContact user;
 
         public OrganizerForm()
         {
@@ -47,24 +48,29 @@ namespace Organizer
             }
         }
 
+        public void OnUserInfoChanged(UserContact userInfo)
+        {
+            user = userInfo;
+        }
         private void OnAuthSuccessful(string login)
         {
             CurrentLogin = login;
             _userEvents = new List<UserEvent>();
-            panel.Controls.Add(new UC.Organizer.Organizer() { Name = "organizer" });
+
+            getUserInfo();
+            panel.Controls.Add(new UC.Organizer.Organizer(user) { Name = "organizer" });
             panel
                 .Controls["organizer"]
                 .BringToFront();
             ClientSize = new Size(405, 205);
 
-            //getEvents();
             timer.Start();
         }
         
-        private void getEvents()
+        private void getUserInfo()
         {
-            SqlCommand getAllEvents = new SqlCommand(
-                string.Format("SELECT * FROM Events WHERE status is NULL AND owner = '{0}'",
+            SqlCommand getUserInfo = new SqlCommand(
+                string.Format("SELECT * FROM Users_info WHERE login = '{0}'",
                               CurrentLogin),
                 Connection
             );
@@ -73,20 +79,21 @@ namespace Organizer
             try
             {
                 _userEvents = new List<UserEvent>();
-                reader = getAllEvents.ExecuteReader();
+                reader = getUserInfo.ExecuteReader();
 
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        _userEvents.Add(new UserEvent(
-                            reader["event_id"],
-                            reader["description"],
+                        user = new UserContact(
+                            reader["login"],
+                            reader["name"],
+                            reader["surname"],
+                            reader["phone"],
                             reader["city"],
                             reader["street"],
                             reader["home"],
-                            reader["event_date"],
-                            reader["event_time"])
+                            reader["email"]
                         );
                     }
                 }
