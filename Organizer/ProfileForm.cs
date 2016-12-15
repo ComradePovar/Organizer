@@ -17,10 +17,12 @@ namespace Organizer
         private UserContact _user;
         public delegate void UserInfoChangedHandler(UserContact userInfo);
         public event UserInfoChangedHandler UserInfoChanged;
+        private bool _canBeSaved;
 
         public ProfileForm()
         {
             InitializeComponent();
+            _canBeSaved = true;
         }
 
         public ProfileForm(UserContact userInfo)
@@ -35,10 +37,18 @@ namespace Organizer
             tbStreet.Text = userInfo.Street;
             tbHome.Text = userInfo.Home;
             tbEmail.Text = userInfo.Email;
+            _canBeSaved = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!_canBeSaved)
+            {
+                MessageBox.Show("Неверно введен номер телефона.", "",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1);
+                return;
+            }
             _user.Name = tbName.Text;
             _user.Surname = tbSurname.Text;
             _user.Phone = mtbPhone.Text;
@@ -78,6 +88,18 @@ namespace Organizer
             }
 
             Close();
+        }
+
+        private void mtbPhone_Leave(object sender, EventArgs e)
+        {
+            if (mtbPhone.Text.Contains(" "))
+            {
+                _canBeSaved = false;
+            }
+            else
+            {
+                _canBeSaved = true;
+            }
         }
     }
 }

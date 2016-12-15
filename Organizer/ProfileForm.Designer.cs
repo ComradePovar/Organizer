@@ -173,6 +173,7 @@
             this.mtbPhone.Name = "mtbPhone";
             this.mtbPhone.Size = new System.Drawing.Size(100, 20);
             this.mtbPhone.TabIndex = 28;
+            this.mtbPhone.Leave += new System.EventHandler(this.mtbPhone_Leave);
             // 
             // ProfileForm
             // 
