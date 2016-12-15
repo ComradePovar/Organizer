@@ -35,20 +35,33 @@ namespace Organizer.UC.Organizer
         {
             string eventDate = GetDate(dateTimePicker.Value);
             string eventTime = GetTime(dateTimePicker.Value);
-            _userEvent = new UserEvent(
-                null,
-                tbDescription.Text,
-                tbCity.Text,
-                tbStreet.Text,
-                tbHome.Text,
-                eventDate,
-                eventTime
-            );
 
             if (_isEdit)
+            {
+                _userEvent.Init(
+                    _userEvent.EventID,
+                    tbDescription.Text,
+                    tbCity.Text,
+                    tbStreet.Text,
+                    tbHome.Text,
+                    eventDate,
+                    eventTime
+                );
                 updateUserEvent();
+            }
             else
+            {
+                _userEvent = new UserEvent(
+                    null,
+                    tbDescription.Text,
+                    tbCity.Text,
+                    tbStreet.Text,
+                    tbHome.Text,
+                    eventDate,
+                    eventTime
+                );
                 insertUserEvent();
+            }
 
             (Parent.Parent as Organizer).GetEvents(eventDate);
 
@@ -106,10 +119,16 @@ namespace Organizer.UC.Organizer
                               _userEvent.EventTime)
                 , (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
             );
-
+            SqlCommand getID = new SqlCommand(
+                string.Format("SELECT MAX(event_id) FROM Events " +
+                              "WHERE owner = '{0}'",
+                              (Application.OpenForms["OrganizerForm"] as OrganizerForm).CurrentLogin),
+                (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
+            );
             try
             {
                 insert.ExecuteNonQuery();
+                _userEvent.EventID = (int)getID.ExecuteScalar();
             }
             catch (Exception ex)
             {

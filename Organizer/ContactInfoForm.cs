@@ -23,7 +23,14 @@ namespace Organizer
 
             tbName.Text = contact.Name;
             tbSurname.Text = contact.Surname;
-            mtbPhone.Text = contact.Phone;
+            if (contact.Phone.Contains(" "))
+            {
+                mtbPhone.Mask = "";
+            }
+            else
+            {
+                mtbPhone.Text = contact.Phone;
+            }
             tbCity.Text = contact.City;
             tbStreet.Text = contact.Street;
             tbHome.Text = contact.Home;

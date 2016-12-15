@@ -27,12 +27,6 @@ namespace Organizer.UC.Organizer
             tslEventTitle.Text = _userEvent.Description;
         }
 
-        private void tsbDel_Click(object sender, EventArgs e)
-        {
-            cancelEvent();
-            Dispose();
-        }
-
         private void EventItem_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Top;
@@ -88,19 +82,26 @@ namespace Organizer.UC.Organizer
 
             Dispose();
         }
-        private void tslEventTitle_Click(object sender, EventArgs e)
+
+        private void eventMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            AddEditEvent addEditEvent = Parent
+            switch(e.ClickedItem.Name)
+            {
+                case "tsbDel":
+                    cancelEvent();
+                    break;
+                case "tsbComplete":
+                    completeEvent();
+                    break;
+                default:
+                    AddEditEvent addEditEvent = Parent
                                         .Parent
                                         .Controls["pnlCalendarEvent"]
                                         .Controls["addeditevent"] as AddEditEvent;
-            addEditEvent.EditEvent(_userEvent);
-            addEditEvent.BringToFront();
-        }
-
-        private void tsbComplete_Click(object sender, EventArgs e)
-        {
-            completeEvent();
+                    addEditEvent.EditEvent(_userEvent);
+                    addEditEvent.BringToFront();
+                    break;
+            }
         }
     }
 }

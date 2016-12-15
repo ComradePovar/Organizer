@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8A055879-3A64-49C3-8A77-E06E7219FA13}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Organizer</RootNamespace>
     <AssemblyName>Organizer</AssemblyName>
@@ -80,6 +80,12 @@
     <Compile Include="ProfileForm.Designer.cs">
       <DependentUpon>ProfileForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatisticForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticForm.Designer.cs">
+      <DependentUpon>StatisticForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UC\Authorization\LogIn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -130,6 +136,12 @@
     <Compile Include="UC\Organizer\Organizer.Designer.cs">
       <DependentUpon>Organizer.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC\Statistic\EventItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\Statistic\EventItem.Designer.cs">
+      <DependentUpon>EventItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserContact.cs" />
     <Compile Include="UserEvent.cs" />
     <EmbeddedResource Include="ContactInfoForm.resx">
@@ -155,7 +167,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StatisticForm.resx">
+      <DependentUpon>StatisticForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UC\Authorization\LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,6 +193,9 @@
     <EmbeddedResource Include="UC\Organizer\Organizer.resx">
       <DependentUpon>Organizer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UC\Statistic\EventItem.resx">
+      <DependentUpon>EventItem.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -189,6 +208,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Apply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cancel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

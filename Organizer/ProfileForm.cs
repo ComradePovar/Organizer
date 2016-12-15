@@ -66,14 +66,16 @@ namespace Organizer
                               "city = '{3}', " +
                               "street = '{4}', " +
                               "home = '{5}', " +
-                              "email = '{6}'",
+                              "email = '{6}' "+
+                              "WHERE login = '{7}'",
                               _user.Name,
                               _user.Surname,
                               _user.Phone,
                               _user.City,
                               _user.Street,
                               _user.Home,
-                              _user.Email),
+                              _user.Email,
+                              (Application.OpenForms["OrganizerForm"] as OrganizerForm).CurrentLogin),
                 (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
             );
 

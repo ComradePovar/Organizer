@@ -58,12 +58,12 @@ namespace Organizer.UC.Organizer
             ProfileForm profileForm = new ProfileForm(_userInfo);
             profileForm.UserInfoChanged += (Application.OpenForms["OrganizerForm"] as OrganizerForm)
                                            .OnUserInfoChanged;
-            profileForm.Show();
+            profileForm.ShowDialog();
         }
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ParentForm.Close();
+            (ParentForm as OrganizerForm).Init();
         }
 
         public void GetEvents(string date)
@@ -75,10 +75,10 @@ namespace Organizer.UC.Organizer
 
             pnlEventList.Controls.Clear();
 
-            SqlCommand getTodayEvents = new SqlCommand(
+            SqlCommand getEvents = new SqlCommand(
                 string.Format("SELECT * FROM Events" +
                               " WHERE owner = '{0}' AND" +
-                              " event_date = '{1}' AND status IS NULL" +
+                              " event_date = '{1}' AND (status IS NULL OR status = 'viewed')" +
                               " ORDER BY event_time DESC",
                 (ParentForm as OrganizerForm).CurrentLogin, date),
                 (ParentForm as OrganizerForm).Connection
@@ -87,7 +87,7 @@ namespace Organizer.UC.Organizer
             SqlDataReader reader = null;
             try
             {
-                reader = getTodayEvents.ExecuteReader();
+                reader = getEvents.ExecuteReader();
 
                 if (reader.HasRows)
                 {
@@ -116,6 +116,11 @@ namespace Organizer.UC.Organizer
                 if (reader != null)
                     reader.Close();
             }
+        }
+
+        private void статистикаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new StatisticForm()).ShowDialog();
         }
     }
 }

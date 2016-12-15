@@ -49,7 +49,9 @@ namespace Organizer
                 }
                 else
                 {
-                    MessageBox.Show("Пользователя с таким логином не существует.");
+                    MessageBox.Show("Пользователя с таким логином не существует.", "",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button1);
                 }
             }
             catch (Exception ex)
@@ -118,7 +120,7 @@ namespace Organizer
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Пользователь с таким логином уже добавлен.", "",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning,
