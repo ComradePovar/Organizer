@@ -39,6 +39,9 @@
             this.lbStreet = new System.Windows.Forms.Label();
             this.lbHome = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
+            this.pnlContacts = new System.Windows.Forms.Panel();
+            this.lbContacts = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbHome
@@ -51,7 +54,7 @@
             // 
             // btnAddEditEvent
             // 
-            this.btnAddEditEvent.Location = new System.Drawing.Point(104, 158);
+            this.btnAddEditEvent.Location = new System.Drawing.Point(104, 248);
             this.btnAddEditEvent.Name = "btnAddEditEvent";
             this.btnAddEditEvent.Size = new System.Drawing.Size(75, 23);
             this.btnAddEditEvent.TabIndex = 6;
@@ -129,7 +132,7 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(23, 158);
+            this.btnBack.Location = new System.Drawing.Point(23, 248);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(75, 23);
             this.btnBack.TabIndex = 13;
@@ -137,10 +140,39 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // pnlContacts
+            // 
+            this.pnlContacts.Location = new System.Drawing.Point(4, 174);
+            this.pnlContacts.Name = "pnlContacts";
+            this.pnlContacts.Size = new System.Drawing.Size(189, 45);
+            this.pnlContacts.TabIndex = 14;
+            // 
+            // lbContacts
+            // 
+            this.lbContacts.AutoSize = true;
+            this.lbContacts.Location = new System.Drawing.Point(4, 158);
+            this.lbContacts.Name = "lbContacts";
+            this.lbContacts.Size = new System.Drawing.Size(64, 13);
+            this.lbContacts.TabIndex = 15;
+            this.lbContacts.Text = "Участники:";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(3, 219);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(189, 23);
+            this.btnAdd.TabIndex = 0;
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // AddEditEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lbContacts);
+            this.Controls.Add(this.pnlContacts);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.lbHome);
             this.Controls.Add(this.lbStreet);
@@ -153,7 +185,7 @@
             this.Controls.Add(this.btnAddEditEvent);
             this.Controls.Add(this.tbHome);
             this.Name = "AddEditEvent";
-            this.Size = new System.Drawing.Size(197, 181);
+            this.Size = new System.Drawing.Size(197, 271);
             this.Load += new System.EventHandler(this.NewEvent_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -173,5 +205,8 @@
         private System.Windows.Forms.Label lbStreet;
         private System.Windows.Forms.Label lbHome;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Panel pnlContacts;
+        private System.Windows.Forms.Label lbContacts;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

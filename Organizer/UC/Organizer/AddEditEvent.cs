@@ -26,7 +26,6 @@ namespace Organizer.UC.Organizer
         {
             Dock = DockStyle.Fill;
             _isEdit = false;
-            Console.WriteLine(dateTimePicker.CustomFormat);
             dateTimePicker.CustomFormat = "dd-MM-yyyy HH:mm";
             dateTimePicker.Format = DateTimePickerFormat.Custom;
         }
@@ -61,20 +60,26 @@ namespace Organizer.UC.Organizer
                     eventTime
                 );
                 insertUserEvent();
+                foreach (UC.Contacts.ContactItem item in pnlContacts.Controls)
+                {
+                    SqlCommand addEvent = new SqlCommand(
+                        string.Format("INSERT INTO event_invites VALUES('{0}', '{1}', NULL);",
+                                      _userEvent.EventID, item._userContact.Login),
+                        (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
+                    );
+
+                    addEvent.ExecuteNonQuery();
+                }
             }
 
-            (Parent.Parent as Organizer).GetEvents(eventDate);
-
-            OrganizerForm mainForm = Application.OpenForms["OrganizerForm"] as OrganizerForm;
-            mainForm._userEvents.RemoveAll(userEvent => userEvent.EventID == _userEvent.EventID);
-            mainForm._userEvents.Add(_userEvent);
-
             clearTextBoxes();
+            (ParentForm.Controls["panel"].Controls["organizer"] as Organizer).RestoreSizes();
             (Parent.Controls["calendar"]).BringToFront();
         }
 
         private void updateUserEvent()
         {
+            OrganizerForm mainFOrm = Application.OpenForms["OrganizerForm"] as OrganizerForm;
             SqlCommand update = new SqlCommand(
                 string.Format("UPDATE dbo.events " +
                               "SET description = '{0}', " +
@@ -91,12 +96,17 @@ namespace Organizer.UC.Organizer
                               _userEvent.EventDate,
                               _userEvent.EventTime,
                               _userEvent.EventID),
-                (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
+                mainFOrm.Connection
             );
-
+            SqlCommand updateStatus = new SqlCommand(
+                string.Format("UPDATE event_invites SET status = NULL WHERE event_id = '{0}' AND " +
+                                "[user] = '{1}'", _userEvent.EventID,
+                              mainFOrm.CurrentLogin),
+                mainFOrm.Connection);
             try
             {
                 update.ExecuteNonQuery();
+                updateStatus.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -157,6 +167,7 @@ namespace Organizer.UC.Organizer
         public void EditEvent(UserEvent userEvent)
         {
             _userEvent = userEvent;
+            (ParentForm.Controls["panel"].Controls["organizer"] as Organizer).IncreaseSizes();
             _isEdit = true;
             btnAddEditEvent.Text = "Изменить";
 
@@ -165,6 +176,55 @@ namespace Organizer.UC.Organizer
             tbStreet.Text = userEvent.Street;
             tbHome.Text = userEvent.Home;
             dateTimePicker.Value = GetDateTime(userEvent.EventDate, userEvent.EventTime);
+
+            SqlDataReader reader = null;
+            SqlCommand getContacts = new SqlCommand(
+                            string.Format("SELECT * FROM Users_info " +
+                                          "WHERE login IN (" +
+                                          "SELECT [user] FROM event_invites WHERE "+
+                                          "event_id = {0})",
+                            _userEvent.EventID),
+                            (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
+            );
+            try
+            {
+                reader = getContacts.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    UserContact userContact;
+
+                    while (reader.Read())
+                    {
+                        userContact = new UserContact(
+                            reader["login"],
+                            reader["name"],
+                            reader["surname"],
+                            reader["phone"],
+                            reader["city"],
+                            reader["street"],
+                            reader["home"],
+                            reader["email"]
+                        );
+
+                        pnlContacts.Controls.Add(
+                            new UC.Contacts.ContactItem(userContact, false)
+                        );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Пользователь с таким логином уже добавлен.", "",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
+                                MessageBoxDefaultButton.Button1);
+                return;
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
         }
 
         private void clearTextBoxes()
@@ -176,14 +236,20 @@ namespace Organizer.UC.Organizer
             _userEvent = null;
             _isEdit = false;
             btnAddEditEvent.Text = "Создать";
+            pnlContacts.Controls.Clear();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
             string eventDate = GetDate(dateTimePicker.Value);
-            (Parent.Parent as Organizer).GetEvents(eventDate);
             clearTextBoxes();
+            (ParentForm.Controls["panel"].Controls["organizer"] as Organizer).RestoreSizes();
             (Parent.Controls["calendar"]).BringToFront();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            (new ContactsForm(true)).ShowDialog();
         }
     }
 }

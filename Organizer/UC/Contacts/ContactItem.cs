@@ -13,18 +13,19 @@ namespace Organizer.UC.Contacts
 {
     public partial class ContactItem : UserControl
     {
-        private UserContact _userContact;
-
+        public UserContact _userContact;
+        public bool _isAddEvent;
         public ContactItem()
         {
             InitializeComponent();
         }
 
-        public ContactItem(UserContact userContact)
+        public ContactItem(UserContact userContact, bool isAddEvent)
         {
             InitializeComponent();
             _userContact = userContact;
             tslContactName.Text = userContact.Login;
+            _isAddEvent = isAddEvent;
         }
 
         private void ContactItem_Load(object sender, EventArgs e)
@@ -61,7 +62,22 @@ namespace Organizer.UC.Contacts
 
         private void tslContactName_Click(object sender, EventArgs e)
         {
-            (new ContactInfoForm(_userContact)).Show();
+            if (_isAddEvent)
+            {
+                Application.OpenForms["OrganizerForm"]
+                            .Controls["panel"]
+                            .Controls["organizer"]
+                            .Controls["pnlCalendarEvent"]
+                            .Controls["addeditevent"]
+                            .Controls["pnlContacts"].Controls.Add(this);
+
+                _isAddEvent = false;
+                Application.OpenForms["ContactsForm"].Close();
+            }
+            else
+            {
+                (new ContactInfoForm(_userContact)).Show();
+            }
         }
     }
 }

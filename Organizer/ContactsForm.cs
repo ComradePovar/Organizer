@@ -13,9 +13,15 @@ namespace Organizer
 {
     public partial class ContactsForm : Form
     {
+        private bool isAddEvent;
         public ContactsForm()
         {
             InitializeComponent();
+        }
+        public ContactsForm(bool isEvent)
+        {
+            InitializeComponent();
+            isAddEvent = isEvent;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -76,15 +82,28 @@ namespace Organizer
             OrganizerForm mainForm = Application.OpenForms["OrganizerForm"] as OrganizerForm;
             SqlCommand getContacts;
             string newContactName = tbNewContact.Text;
-
-            getContacts = new SqlCommand(
-                            string.Format("SELECT * FROM Users_info " +
-                                            "JOIN Contacts " +
-                                            "ON login = contact " +
-                                            "WHERE owner = '{0}'",
-                                            mainForm.CurrentLogin),
-                            mainForm.Connection
-            );
+            if (isAddEvent)
+            {
+                getContacts = new SqlCommand(
+                    string.Format("SELECT * FROM Users_info JOIN Contacts ON " +
+                                  "login = contact " +
+                                  "WHERE owner = '{0}' AND contact IN (" +
+                                  "SELECT owner FROM Contacts WHERE contact = '{0}')",
+                                  mainForm.CurrentLogin),
+                    mainForm.Connection
+                );
+            }
+            else
+            {
+                getContacts = new SqlCommand(
+                                string.Format("SELECT * FROM Users_info " +
+                                                "JOIN Contacts " +
+                                                "ON login = contact " +
+                                                "WHERE owner = '{0}'",
+                                                mainForm.CurrentLogin),
+                                mainForm.Connection
+                );
+            }
 
             foreach (UC.Contacts.ContactItem contactItem in pnlContactList.Controls)
             {
@@ -115,7 +134,7 @@ namespace Organizer
                         );
 
                         pnlContactList.Controls.Add(
-                            new UC.Contacts.ContactItem(userContact)
+                            new UC.Contacts.ContactItem(userContact, isAddEvent)
                         );
                     }
                 }

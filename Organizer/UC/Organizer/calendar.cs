@@ -23,12 +23,11 @@ namespace Organizer.UC.Organizer
         private void Calendar_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
-            (Parent.Parent as Organizer).GetEvents(ToISODateTime(monthCalendar.TodayDate));
         }
 
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            (Parent.Parent as Organizer).GetEvents(ToISODateTime(e.Start));
+            //(Parent.Parent as Organizer).GetEvents(ToISODateTime(e.Start));
         }
 
         private string ToISODateTime(DateTime date)

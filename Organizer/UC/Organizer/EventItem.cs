@@ -40,9 +40,10 @@ namespace Organizer.UC.Organizer
                 .RemoveAll(userEvent => userEvent.EventID == _userEvent.EventID);
 
             SqlCommand cancelEvent = new SqlCommand(
-                string.Format("UPDATE events" +
+                string.Format("UPDATE Event_invites" +
                               " SET status = 'canceled'" +
-                              " WHERE event_id = {0}", _userEvent.EventID),
+                              " WHERE event_id = {0} AND [user] = '{1}'", _userEvent.EventID,
+                              (Application.OpenForms["OrganizerForm"] as OrganizerForm).CurrentLogin),
                 (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
             );
 
@@ -65,9 +66,10 @@ namespace Organizer.UC.Organizer
                 .RemoveAll(userEvent => userEvent.EventID == _userEvent.EventID);
 
             SqlCommand completeEvent = new SqlCommand(
-                string.Format("UPDATE events" +
+                string.Format("UPDATE Event_invites" +
                               " SET status = 'completed'" +
-                              " WHERE event_id = {0}", _userEvent.EventID),
+                              " WHERE event_id = {0} AND [user] = '{1}'", _userEvent.EventID,
+                              (Application.OpenForms["OrganizerForm"] as OrganizerForm).CurrentLogin),
                 (Application.OpenForms["OrganizerForm"] as OrganizerForm).Connection
             );
 

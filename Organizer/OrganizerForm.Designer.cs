@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel = new System.Windows.Forms.Panel();
-            this.timer = new System.Windows.Forms.Timer();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timerEvents = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // panel
@@ -40,10 +42,21 @@
             this.panel.Size = new System.Drawing.Size(292, 180);
             this.panel.TabIndex = 0;
             // 
+            // timer
+            // 
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // timerEvents
+            // 
+            this.timerEvents.Interval = 10000;
+            this.timerEvents.Tick += new System.EventHandler(this.timerEvents_Tick);
+            // 
             // OrganizerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(292, 180);
             this.Controls.Add(this.panel);
             this.MinimumSize = new System.Drawing.Size(308, 189);
@@ -52,17 +65,13 @@
             this.Load += new System.EventHandler(this.OrganizerForm_Load);
             this.ResumeLayout(false);
 
-            //
-            // timer
-            //
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panel;
         protected System.Windows.Forms.Timer timer;
+        protected System.Windows.Forms.Timer timerEvents;
     }
 }
 

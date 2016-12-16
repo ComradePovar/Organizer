@@ -44,22 +44,26 @@ namespace Organizer.UC.Authorization
             SqlDataReader reader = null;
             try
             {
-                reader = loginCmd.ExecuteReader();                
+                reader = loginCmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Close();
+                    AuthSuccessful(tbLogin.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Неверная комбинация логин-пароль.");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
             }
-
-            if (reader.HasRows)
+            finally
             {
-                reader.Close();
-                AuthSuccessful(tbLogin.Text);
-            }
-            else
-            {
-                MessageBox.Show("Неверная комбинация логин-пароль.");
+                if (reader != null)
+                    reader.Close();
             }
         }
 

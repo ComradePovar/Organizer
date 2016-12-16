@@ -45,23 +45,6 @@ namespace Organizer
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
-            OrganizerForm mainForm = Application.OpenForms["OrganizerForm"] as OrganizerForm;
-            SqlCommand eventCanceled = new SqlCommand(
-                string.Format("UPDATE Events SET status = 'viewed' WHERE event_id = {0}",
-                              _userEvent.EventID),
-                mainForm.Connection
-            );
-
-            try
-            {
-                eventCanceled.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Close();
-                return;
-            }
             Close();
         }
 

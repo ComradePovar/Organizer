@@ -44,10 +44,26 @@ namespace Organizer.UC.Organizer
                             .Controls["calendar"]
                             .Controls["monthCalendar"] as MonthCalendar)
                             .SelectionStart;
-                
+            label1.Size = new Size(label1.Size.Width, 271);
+            pnlCalendarEvent.Size = new Size(197, 271);
+
+            ParentForm.Size = new Size(ParentForm.Size.Width, 334);
             pnlCalendarEvent.Controls["addeditevent"].BringToFront();
         }
+        public void IncreaseSizes()
+        {
+            label1.Size = new Size(label1.Size.Width, 271);
+            pnlCalendarEvent.Size = new Size(197, 271);
 
+            ParentForm.Size = new Size(ParentForm.Size.Width, 334);
+            pnlCalendarEvent.Controls["addeditevent"].BringToFront();
+        }
+        public void RestoreSizes()
+        {
+            label1.Size = new Size(label1.Size.Width, 181);
+            pnlCalendarEvent.Size = new Size(197, 181);
+            ParentForm.Size = new Size(ParentForm.Size.Width, 244);
+        }
         private void contactsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (new ContactsForm()).ShowDialog();
@@ -66,61 +82,14 @@ namespace Organizer.UC.Organizer
             (ParentForm as OrganizerForm).Init();
         }
 
-        public void GetEvents(string date)
-        {
-            foreach (EventItem eventItem in pnlEventList.Controls)
-            {
-                eventItem.Dispose();
-            }
-
-            pnlEventList.Controls.Clear();
-
-            SqlCommand getEvents = new SqlCommand(
-                string.Format("SELECT * FROM Events" +
-                              " WHERE owner = '{0}' AND" +
-                              " event_date = '{1}' AND (status IS NULL OR status = 'viewed')" +
-                              " ORDER BY event_time DESC",
-                (ParentForm as OrganizerForm).CurrentLogin, date),
-                (ParentForm as OrganizerForm).Connection
-            );
-
-            SqlDataReader reader = null;
-            try
-            {
-                reader = getEvents.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        UserEvent userEvent = new UserEvent(
-                            reader["event_id"],
-                            reader["description"],
-                            reader["city"],
-                            reader["street"],
-                            reader["home"],
-                            reader["event_date"],
-                            reader["event_time"]
-                        );
-
-
-                        pnlEventList.Controls.Add(
-                            new EventItem(userEvent)
-                        );
-                    }
-                }
-            }
-
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
-            }
-        }
-
         private void статистикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (new StatisticForm()).ShowDialog();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            (ParentForm as OrganizerForm).RefreshList();
         }
     }
 }

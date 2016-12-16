@@ -31,13 +31,15 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.contactsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.статистикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.addBtn = new System.Windows.Forms.Button();
             this.pnlEventList = new System.Windows.Forms.Panel();
             this.pnlCalendarEvent = new System.Windows.Forms.Panel();
-            this.статистикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
+            this.pnlEventList.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -67,6 +69,13 @@
             this.profileToolStripMenuItem.Text = "Профиль";
             this.profileToolStripMenuItem.Click += new System.EventHandler(this.profileToolStripMenuItem_Click);
             // 
+            // статистикаToolStripMenuItem
+            // 
+            this.статистикаToolStripMenuItem.Name = "статистикаToolStripMenuItem";
+            this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.статистикаToolStripMenuItem.Text = "Статистика";
+            this.статистикаToolStripMenuItem.Click += new System.EventHandler(this.статистикаToolStripMenuItem_Click);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -95,6 +104,7 @@
             // pnlEventList
             // 
             this.pnlEventList.AutoScroll = true;
+            this.pnlEventList.Controls.Add(this.btnRefresh);
             this.pnlEventList.Location = new System.Drawing.Point(9, 33);
             this.pnlEventList.Name = "pnlEventList";
             this.pnlEventList.Size = new System.Drawing.Size(179, 135);
@@ -107,12 +117,16 @@
             this.pnlCalendarEvent.Size = new System.Drawing.Size(197, 181);
             this.pnlCalendarEvent.TabIndex = 6;
             // 
-            // статистикаToolStripMenuItem
+            // btnRefresh
             // 
-            this.статистикаToolStripMenuItem.Name = "статистикаToolStripMenuItem";
-            this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
-            this.статистикаToolStripMenuItem.Text = "Статистика";
-            this.статистикаToolStripMenuItem.Click += new System.EventHandler(this.статистикаToolStripMenuItem_Click);
+            this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnRefresh.Location = new System.Drawing.Point(0, 112);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(179, 23);
+            this.btnRefresh.TabIndex = 0;
+            this.btnRefresh.Text = "Обновить";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // Organizer
             // 
@@ -128,6 +142,7 @@
             this.Load += new System.EventHandler(this.Organizer_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.pnlEventList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,5 +159,6 @@
         private System.Windows.Forms.ToolStripMenuItem contactsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem статистикаToolStripMenuItem;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

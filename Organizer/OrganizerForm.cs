@@ -52,6 +52,7 @@ namespace Organizer
         public void Init()
         {
             timer.Stop();
+            timerEvents.Stop();
             CurrentLogin = null;
             _userEvents = null;
             user = null;
@@ -103,7 +104,8 @@ namespace Organizer
                 .BringToFront();
             ClientSize = new Size(405, 205);
 
-            getUserEvents();
+            timerEvents_Tick(null, null);
+            timerEvents.Start();
             timer.Start();
         }
         
@@ -193,7 +195,90 @@ namespace Organizer
                     reader.Close();
             }
         }
-        private void timer_Tick(object o, EventArgs e)
+        private void timerEvents_Tick(object o, EventArgs e)
+        {
+            Panel eventList = ((panel.Controls["organizer"] as UC.Organizer.Organizer)
+                              .Controls["pnlEventList"] as Panel);
+
+            for (int i = 0; i < eventList.Controls.Count; i++)
+            {
+                Control eventItem = eventList.Controls[i];
+                if (eventItem is UC.Organizer.EventItem)
+                {
+                    eventList.Controls.Remove(eventItem);
+                    eventItem.Dispose();
+                }
+            }
+            DateTime lastDate = ((((panel.Controls["organizer"] as UC.Organizer.Organizer)
+                                .Controls["pnlCalendarEvent"] as Panel)
+                                .Controls["calendar"] as UC.Organizer.Calendar)
+                                .Controls["monthCalendar"] as MonthCalendar)
+                                .SelectionStart;
+            string date = lastDate.Year + "-" + lastDate.Month + "-" + lastDate.Day;
+
+            SqlCommand getEvents = new SqlCommand(
+                string.Format("SELECT * FROM Events JOIN Event_invites ON Events.Event_id = Event_invites.Event_id" +
+                              " WHERE [user] = '{0}' AND" +
+                              " event_date = '{1}' AND (status IS NULL OR status = 'viewed')" +
+                              " ORDER BY event_time DESC",
+                CurrentLogin, date),
+                Connection
+            );
+            SqlCommand getContacts = new SqlCommand(
+                string.Format("SELECT contact FROM Contacts WHERE owner = '{0}'",
+                CurrentLogin), Connection);
+            SqlDataReader reader = null;
+            SqlDataReader readercontacts = null;
+            try
+            {
+                List<string> contacts = new List<string>();
+                readercontacts = getContacts.ExecuteReader();
+                if (readercontacts.HasRows)
+                {
+                    while(readercontacts.Read())
+                        contacts.Add(readercontacts.GetValue(0).ToString());
+                }
+                readercontacts.Close();
+                reader = getEvents.ExecuteReader();
+                _userEvents = new List<UserEvent>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        UserEvent userEvent = new UserEvent(
+                            reader["event_id"],
+                            reader["description"],
+                            reader["city"],
+                            reader["street"],
+                            reader["home"],
+                            reader["event_date"],
+                            reader["event_time"]
+                        );
+                        if (contacts.Contains(reader["owner"].ToString()))
+                        {
+                            if (reader["status"].ToString() == "")
+                                _userEvents.Add(userEvent);
+                            eventList.Controls.Add(
+                                new UC.Organizer.EventItem(userEvent)
+                            );
+                        }
+                    }
+                }
+            }
+
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
+
+
+        }
+        public void RefreshList()
+        {
+            timerEvents_Tick(null, null);
+        }
+    private void timer_Tick(object o, EventArgs e)
         {
             DateTime dtNow = DateTime.Now;
 
@@ -202,11 +287,8 @@ namespace Organizer
                                                    parseFormat9, parseFormat10, parseFormat11, parseFormat12,
                                                    parseFormat13, parseFormat14, parseFormat15,
                                                    parseFormat16, parseFormat17 };
-            DateTime lastDate = ((((panel.Controls["organizer"] as UC.Organizer.Organizer)
-                                .Controls["pnlCalendarEvent"] as Panel)
-                                .Controls["calendar"] as UC.Organizer.Calendar)
-                                .Controls["monthCalendar"] as MonthCalendar)
-                                .SelectionStart;
+            if (_userEvents == null)
+                return;
             foreach (UserEvent userEvent in _userEvents)
             {
                 string sEventDateTime = userEvent.EventDate.Split(' ')[0] + " " +
@@ -215,11 +297,14 @@ namespace Organizer
                     sEventDateTime, parseFormats, null, System.Globalization.DateTimeStyles.None);
                 if (eventDateTime <= dtNow && userEvent.isViewed == false)
                 {
-                    userEvent.isViewed = true;
-                    (new EventInfoForm(userEvent)).ShowDialog();
-                    (panel.Controls["organizer"] as UC.Organizer.Organizer).GetEvents(
-                        lastDate.Year + "-" + lastDate.Month + "-" + lastDate.Day
+                    SqlCommand eventViewed = new SqlCommand(
+                        string.Format("UPDATE Event_invites SET status = 'viewed' WHERE event_id = {0} AND [user] = '{1}'",
+                                      userEvent.EventID, CurrentLogin),
+                        Connection
                     );
+                    userEvent.isViewed = true;
+                    eventViewed.ExecuteNonQuery();
+                    (new EventInfoForm(userEvent)).ShowDialog();
                 }
             }
         }

@@ -45,12 +45,12 @@ namespace Organizer
             foreach(UC.Statistic.EventItem userEvent in pnlEventList.Controls)
             {
                 userEvent.Dispose();
-            }
+            }         
             pnlEventList.Controls.Clear();
 
             SqlCommand findEvents = new SqlCommand(
-                string.Format("SELECT * FROM Events WHERE " +
-                              "owner = '{0}' AND event_date >= '{1}' AND event_date <= '{2}' "+
+                string.Format("SELECT * FROM Events JOIN Event_invites ON Events.event_id=Event_invites.event_id WHERE " +
+                              "[user] = '{0}' AND event_date >= '{1}' AND event_date <= '{2}' "+
                               "AND status = '{3}' ORDER BY event_date ASC",
                               mainForm.CurrentLogin, dateFrom, dateUntil, status),
                 mainForm.Connection
